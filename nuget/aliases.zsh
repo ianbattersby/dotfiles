@@ -1,0 +1,1 @@
+alias nuget='mono ~/.dotfiles/nuget/NuGet.exe'
