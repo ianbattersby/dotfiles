@@ -8,9 +8,9 @@ export PROJECTS=~/Code
 export PATH="$PATH:/opt/boxen/homebrew/Cellar/gettext/0.18.2/bin"
 
 # Compilation things
-export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
-export PATH="/Library/Frameworks/Mono.framework/Versions/Current/bin:$PATH"
-export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib
+# export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
+# export PATH="/Library/Frameworks/Mono.framework/Versions/Current/bin:$PATH"
+# export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib
 
 # all of our zsh files
 typeset -U config_files
