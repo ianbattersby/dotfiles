@@ -40,6 +40,7 @@ alias topleft corner top-left resize:screenSizeX/2;screenSizeY/2
 alias topright corner top-right resize:screenSizeX/2;screenSizeY/2
 alias bottomleft corner bottom-left resize:screenSizeX/2;screenSizeY/2
 alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
+alias natural move screenSizeX-screenSizeX/1.4;screenSizeY-screenSizeY/1.5 screenSizeX/1.65;screenSizeY/1.8
 
 # 2 Monitor layout
 layout 2monitors 'iTerm':SORT_TITLE                          ${2-bot-l} | ${2-bot-m} | ${2-bot-r}
@@ -91,6 +92,7 @@ bind pad/:ctrl ${2-bot}
 # Move/Corner bindings
 ## SHIFT-CMD with ALT for 3rds
 bind return:shift;cmd ${full}
+bind 0:shift;cmd ${natural}
 bind k:shift;cmd ${tophalf}
 bind j:shift;cmd ${bottomhalf}
 bind h:shift;cmd ${lefthalf}
@@ -105,21 +107,21 @@ bind p:shift;cmd ${topright}
 
 # Resize Bindings
 ## ALT from Top-Left, ALT-CTRL from Bottom-Right
-bind l:alt resize +10% +0
-bind h:alt resize -10% +0
+bind l:alt resize +5% +0
+bind h:alt resize -5% +0
 bind k:alt resize +0 -10%
 bind j:alt resize +0 +10%
-bind l:ctrl;alt resize -10% +0 bottom-right
-bind h:ctrl;alt resize +10% +0 bottom-right
+bind l:ctrl;alt resize -5% +0 bottom-right
+bind h:ctrl;alt resize +5% +0 bottom-right
 bind k:ctrl;alt resize +0 +10% bottom-right
 bind j:ctrl;alt resize +0 -10% bottom-right
 
 # Nudge Bindings
 ## SHIFT-ALT
-bind l:shift;alt nudge +1% +0
-bind h:shift;alt nudge -1% +0
-bind k:shift;alt nudge +0 -1%
-bind j:shift;alt nudge +0 +1%
+bind l:shift;alt nudge +5% +0
+bind h:shift;alt nudge -5% +0
+bind k:shift;alt nudge +0 -5%
+bind j:shift;alt nudge +0 +5%
 
 # Focus Bindings
 ## SHIFT-CTRL
@@ -132,10 +134,10 @@ bind j:shift;ctrl;alt focus behind
 
 # Push Bindings
 # NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
-bind right:ctrl;shift push right bar-resize:screenSizeX/3
-bind left:ctrl;shift  push left  bar-resize:screenSizeX/3
-bind up:ctrl;shift    push up    bar-resize:screenSizeY/2
-bind down:ctrl;shift  push down  bar-resize:screenSizeY/2
+bind right:ctrl;shift push right none #bar-resize:screenSizeX/3
+bind left:ctrl;shift  push left  none #bar-resize:screenSizeX/3
+bind up:ctrl;shift    push up    none #bar-resize:screenSizeY/2
+bind down:ctrl;shift  push down  none #bar-resize:screenSizeY/2
 
 # Throw Bindings
 # NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
