@@ -1,0 +1,4 @@
+{
+	"shell": ["/opt/boxen/homebrew/bin/zsh", "-l"],
+	"9o_color_scheme": "default"
+}

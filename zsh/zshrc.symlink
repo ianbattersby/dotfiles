@@ -7,6 +7,8 @@ export PROJECTS=~/Code
 # add gettext path, hack to be fixed another day
 export PATH="$PATH:/opt/boxen/homebrew/Cellar/gettext/0.18.2/bin"
 
+# export PATH="$PATH:/Users/ian/Applications/clojure-1.5.1"
+
 # Compilation things
 # export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
 # export PATH="/Library/Frameworks/Mono.framework/Versions/Current/bin:$PATH"

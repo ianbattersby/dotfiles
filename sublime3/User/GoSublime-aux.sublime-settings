@@ -1,0 +1,79 @@
+{
+	"9o.hist./":
+	[
+		"import os;"
+	],
+	"9o.hist./Applications/Sublime Text.app/Contents/MacOS":
+	[
+		"help",
+		"build",
+		"cd ~/gocode/",
+		"import os; os.getcwd()",
+		"opt/boxen/homebrew/bin/zsh",
+		"/opt/boxen/homebrew/bin/zsh",
+		"cd /",
+		"import os;",
+		"os.getcmd()"
+	],
+	"9o.hist./Users/ian/Library/Application Support/Sublime Text 3/Packages/GoSublime":
+	[
+		"clear",
+		"sh",
+		"tskill",
+		"env",
+		"settings",
+		"help",
+		"import os;",
+		"os.getcmd()",
+		"import sublime, sublime_plugin, os, subprocess",
+		"self.view.file_name()",
+		"echo self.view.file_name()",
+		"echo working_dir",
+		"$[project_path]",
+		"echo $[project_path]",
+		"\"working_dir\": \"${project_path:${folder:${file_path}}}\"",
+		"import sublime;",
+		"sublime.settings.get(\"working_dir\")",
+		"print(\"hello\")"
+	],
+	"9o.hist./Users/ian/Library/Application Support/Sublime Text 3/Packages/User":
+	[
+		"import os;"
+	],
+	"9o.hist./Users/ian/gocode":
+	[
+		"ls",
+		"dir",
+		"pwd",
+		"cd src/github.com/ianbattersby/goweb"
+	],
+	"9o.hist./Users/ian/gocode/src/github.com/ianbattersby/goweb":
+	[
+		"run",
+		"build",
+		"go build"
+	],
+	"9o.hist./Users/ian/gocode/src/github.com/ianbattersby/goweb/example_webapp":
+	[
+		"clear"
+	],
+	"9o.hist./Users/ian/gocode/src/github.com/ianbattersby/goweb/handlers":
+	[
+		"help",
+		"go",
+		"echo $GOPATH",
+		"set",
+		"pwd",
+		"$pwd",
+		"$_wd",
+		"build"
+	],
+	"9o.hist./Users/ian/src/Simple.Web":
+	[
+		"import os;",
+		"os.getcmd()"
+	],
+	"ann": "a13.07.29-1",
+	"install_version": "r13.07.29-1",
+	"version": "r13.07.29-1"
+}

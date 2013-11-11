@@ -1,0 +1,11 @@
+{
+	"font_face": "Source Code Pro",
+	"font_size": 14.0,
+	"hot_exit": true,
+	"ignored_packages":
+	[
+	],
+	"remember_open_files": false,
+	"theme": "Soda Dark.sublime-theme",
+	"vintage_start_in_command_mode": true
+}

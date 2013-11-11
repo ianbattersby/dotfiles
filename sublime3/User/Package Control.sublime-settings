@@ -1,0 +1,11 @@
+{
+	"auto_upgrade_last_run": null,
+	"installed_packages":
+	[
+		"ColorPick",
+		"ColorPicker",
+		"GoSublime",
+		"Markdown Preview",
+		"Package Control"
+	]
+}
