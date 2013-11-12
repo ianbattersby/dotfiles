@@ -153,7 +153,7 @@ bind down:ctrl;alt;cmd  throw down  resize
 bind padEnter:ctrl layout 2monitors
 
 # Slate Bindings
-bind 1:ctrl relaunch
+# bind 1:ctrl relaunch
 
 # Window Hints
 bind esc:cmd hint
