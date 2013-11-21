@@ -3,3 +3,8 @@ syntax enable
 filetype plugin indent on
 set background=dark
 colorscheme solarized
+
+if &term =~ "xterm-256color"
+	set t_Co=256 
+	colorscheme solarized
+endif
