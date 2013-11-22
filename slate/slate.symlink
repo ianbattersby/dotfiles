@@ -13,8 +13,8 @@ alias mon-laptop      2560x1660
 alias mon-thunderbolt 1920x1200 #2560x1440
 
 # Dimension Specific Aliases
-alias 1-chat  move screenOriginX;screenOriginY                               screenSizeX/9;screenSizeY       ${mon-laptop}
-alias 1-main  move screenOriginX+screenSizeX/9;screenOriginY                 8*screenSizeX/9;screenSizeY     ${mon-laptop}
+alias 1-chat  move screenOriginX;screenOriginY                               screenSizeX/5;screenSizeY       ${mon-laptop}
+alias 1-main  move screenOriginX+screenSizeX/5;screenOriginY                 4*screenSizeX/5;screenSizeY     ${mon-laptop}
 alias 2-bot   move screenOriginX;screenOriginY+screenSizeY/2                 screenSizeX;screenSizeY/2       ${mon-thunderbolt}
 alias 2-bot-l move screenOriginX;screenOriginY+screenSizeY/2                 screenSizeX/3;screenSizeY/2     ${mon-thunderbolt}
 alias 2-bot-m move screenOriginX+screenSizeX/3;screenOriginY+screenSizeY/2   screenSizeX/3;screenSizeY/2     ${mon-thunderbolt}
@@ -74,9 +74,9 @@ default 1monitor  resolutions:${mon-laptop}
 
 # Basic location Bindings
 bind pad0:ctrl ${1-chat}
-bind [:ctrl    ${1-chat}
+bind [:cmd     ${1-chat}
 bind pad.:ctrl ${1-main}
-bind ]:ctrl    ${1-main}
+bind ]:cmd     ${1-main}
 bind pad1:ctrl ${2-bot-l}
 bind pad2:ctrl ${2-bot-m}
 bind pad3:ctrl ${2-bot-r}
@@ -92,7 +92,7 @@ bind pad/:ctrl ${2-bot}
 # Move/Corner bindings
 ## SHIFT-CMD with ALT for 3rds
 bind return:shift;cmd ${full}
-bind 0:shift;cmd ${natural}
+bind 0:cmd ${natural}
 bind k:shift;cmd ${tophalf}
 bind j:shift;cmd ${bottomhalf}
 bind h:shift;cmd ${lefthalf}
