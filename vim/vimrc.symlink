@@ -9,4 +9,10 @@ if &term =~ "xterm-256color"
 	colorscheme solarized
 endif
 
-set guifont=Source\ Code\ Pro:h14
+set guifont=Sauce\ Code\ Powerline:h15
+set fuopt+=maxhorz
+set fu
+set laststatus=2
+set noshowmode
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
