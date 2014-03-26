@@ -1,6 +1,9 @@
 execute pathogen#infect()
-syntax enable
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
+syntax enable
 set background=dark
 colorscheme solarized
 
@@ -14,5 +17,35 @@ set fuopt+=maxhorz
 set fu
 set laststatus=2
 set noshowmode
+
+" Airline
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
+
+" Vim Numbers
+let g:enable_numbers = 1
+
+nnoremap <F3> :NumbersToggle<CR>
+nnoremap <F4> :NumbersOnOff<CR>
+
+" CtrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+let g:ctrlp_by_filename = 0
+let g:ctrlp_open_new_file = 'v'
+let g:ctrlp__user_command = {
+	\ 'types': {
+		\ 1: ['.git', 'cd %s && git ls-files'],
+		\ 2: ['.hg', 'hg --cwd %s locate -I .'],
+		\ },
+	\ 'fallback': 'find %s -type f'
+	\ }
+
+nnoremap <leader>. :CtrlPTag<CR>
+
+" NERDtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" gofmt
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
+autocmd FileType go compiler go
