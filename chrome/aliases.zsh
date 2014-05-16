@@ -1,1 +1,1 @@
-alias chromedev='open /Applications/Google\ Chrome\ Canary.app --args --allow-file-access-from-files'
+alias chromedev='open /Applications/Google\ Chrome\ Canary.app --args --disable-web-security --allow-file-access-from-files'
