@@ -1,9 +1,7 @@
 execute pathogen#infect()
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax enable
+set runtimepath+=$GOROOT/misc/vim
 set background=dark
 colorscheme solarized
 " colorscheme vividchalk
@@ -16,9 +14,15 @@ endif
 
 set guifont=Sauce\ Code\ Powerline:h15
 set fuopt+=maxhorz
-set fu
+set nofu
 set laststatus=2
+set tabstop=4
+set shiftwidth=4
+set expandtab
 set noshowmode
+
+" Clipboard
+set clipboard=unnamed
 
 " Cursor style
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
