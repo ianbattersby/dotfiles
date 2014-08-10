@@ -13,6 +13,9 @@ export PATH="$PATH:/opt/boxen/homebrew/Cellar/gettext/0.18.2/bin"
 # export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
 # export PATH="/Library/Frameworks/Mono.framework/Versions/Current/bin:$PATH"
 # export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib
+export LDFLAGS="-L/opt/boxen/homebrew/opt/gettext/lib:/opt/boxen/homebrew/opt/openssl/lib"
+export CPPFLAGS="-I/opt/boxen/homebrew/opt/gettext/include:/opt/boxen/homebrew/opt/openssl/include"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/X11/lib/pkgconfig"
 
 # all of our zsh files
 typeset -U config_files
