@@ -95,7 +95,7 @@ autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
 autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
 
 set updatetime=500
-set cmdheight=2
+set cmdheight=1
 
 " Markdown
 au BufRead,BufNewFile *.md set filetype=markdown
