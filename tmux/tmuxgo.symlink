@@ -1,0 +1,15 @@
+#!/bin/zsh
+SESSION=`basename $PWD`
+
+tmux -2 new-session -d -s $SESSION
+
+tmux rename-window -t $SESSION:1 general
+tmux split-window -h
+tmux select-pane -t 0
+tmux new-window -t $SESSION -a -n vim
+tmux split-window -h -p 30
+tmux split-window -v -p 30
+tmux select-pane -t 0
+
+tmux select-window -t $SESSION:1
+tmux -2 attach -t $SESSION
