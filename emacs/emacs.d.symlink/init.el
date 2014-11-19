@@ -48,7 +48,7 @@
         (dolist (var load-path)
           (unless (memql var old-path)
                 (add-to-list 'new-load-path var)
-                (setq load-path (append new-load-path old-path))))))(add-to-list 'load-path "~/.emacs.d/")
+                (setq load-path (append new-load-path old-path))))))
 
 ;; install-elisp
 ;;(load "install-elisp.el")
