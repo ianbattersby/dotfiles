@@ -15,11 +15,26 @@
 
 (set-face-attribute 'default nil
     :family "Source Code Pro" :height 185 :weight 'normal)
-(setq-default truncate-lines 1)
+;;    :family "Sauce Code Powerline" :height 185 :weight 'normal)
 
+(setq-default truncate-lines 1)
 (setq c-basic-offset 4)
 (setq tab-width 4)
 (setq indent-tabs-mode nil)
+
+(setq compilation-ask-about-save nil)
+
+;; (set-frame-parameter (selected-frame) 'alpha '(85 50))
+;; (add-to-list 'default-frame-alist '(alpha 85 50))
+
+;; switch me some buffers
+;;(defun switch-to-previous-buffer ()
+;;    (interactive)
+;;        (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+;;(global-set-key (kbd "C-\]") 'switch-to-previous-buffer)
+
+;;(global-set-key (kbd "C-\[") 'next-multiframe-window)
 
 ;; full-screen
 (defun toggle-fullscreen ()
@@ -95,6 +110,10 @@
 (define-key helm-map (kbd "C-j") 'helm-next-line)
 (define-key helm-map (kbd "C-k") 'helm-previous-line)
 
+(add-to-list 'compilation-error-regexp-alist
+                 '(" in \\(.+\\):\\([1-9][0-9]+\\)" 1 2))
+
+
 ;; omnisharp
 (setq omnisharp-company-do-template-completion t)
 (require 'omnisharp)
@@ -149,6 +168,18 @@
 (define-key company-active-map (kbd "C-j") 'company-select-next-or-abort)
 (define-key company-active-map (kbd "C-k") 'company-select-previous-or-abort)
 
+(defun tab-indent-or-complete ()
+    (interactive)
+        (if (minibufferp)
+            (minibuffer-complete)
+        (if (or (not yas/minor-mode)
+            (null (do-yas-expand)))
+        (if (check-expansion)
+            (company-complete-common)
+        (indent-for-tab-command)))))
+
+(define-key company-active-map (kbd "<tab>") 'tab-indent-or-complete)
+
 ;; hl-line
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#333")
@@ -186,20 +217,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-frontends
-   (quote
-    (company-pseudo-tooltip-frontend company-echo-metadata-frontend)))
+ '(ansi-color-names-vector ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(company-frontends (quote (company-pseudo-tooltip-frontend company-echo-metadata-frontend)))
  '(company-idle-delay 0.03)
  '(company-minimum-prefix-length 1)
  '(company-show-numbers t)
+ '(custom-enabled-themes (quote (vivid-chalk)))
+ '(custom-safe-themes (quote ("d856a69b420c5882358b33a7265f9f069f260cad44ca7ce0fa9b4228d65ee8f3" "05db4ea84692952a883a3ed1e3f82215163f73f41d53ffe8acdccf5b314ecb9f" "b7feeb278a5b7de0a7c8dfc35c95263fb562e0e7f654d34eac811027fb3e913e" default)))
+ '(custom-theme-directory "~/.emacs.d/themes/")
+ '(helm-ag-insert-at-point (quote word))
  '(omnisharp-auto-complete-want-documentation nil)
  '(omnisharp-company-sort-results t)
- '(omnisharp-server-executable-path
-   (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe))
- '(custom-enabled-themes (quote (vivid-chalk)))
- '(custom-safe-themes (quote ("b7feeb278a5b7de0a7c8dfc35c95263fb562e0e7f654d34eac811027fb3e913e" default)))
- '(custom-theme-directory "~/.emacs.d/themes/")
- '(helm-ag-insert-at-point (quote word)))
+ '(omnisharp-server-executable-path (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
