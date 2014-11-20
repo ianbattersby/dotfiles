@@ -10,8 +10,8 @@ colorscheme vividchalk
 
 if &term =~ "xterm-256color"
 	set t_Co=256
-	colorscheme solarized
-	" colorscheme vividchalk
+	" colorscheme solarized
+	colorscheme vividchalk
 endif
 
 set guifont=Sauce\ Code\ Powerline:h15
