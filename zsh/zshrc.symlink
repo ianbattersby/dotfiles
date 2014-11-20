@@ -13,9 +13,15 @@ export PATH="$PATH:/opt/boxen/homebrew/Cellar/gettext/0.18.2/bin"
 # export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
 # export PATH="/Library/Frameworks/Mono.framework/Versions/Current/bin:$PATH"
 # export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib
+export MONO_PREFIX=/Library/Frameworks/Mono.framework/Versions/Current
+# export DYLD_FALLBACK_LIBRARY_PATH=$MONO_PREFIX/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=$MONO_PREFIX/include
+export ACLOCAL_PATH=$MONO_PREFIX/share/aclocal
 export LDFLAGS="-L/opt/boxen/homebrew/opt/gettext/lib:/opt/boxen/homebrew/opt/openssl/lib"
 export CPPFLAGS="-I/opt/boxen/homebrew/opt/gettext/include:/opt/boxen/homebrew/opt/openssl/include"
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/X11/lib/pkgconfig"
+export PKG_CONFIG_PATH="$MONO_PREFIX/lib/pkgconfig/:/usr/local/lib/pkgconfig:/usr/X11/lib/pkgconfig"
+#export PATH=$MONO_PREFIX/bin:$PATH
 
 # all of our zsh files
 typeset -U config_files
@@ -53,3 +59,4 @@ done
 unset config_files
 
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+[ -f /opt/boxen/homebrew/bin/kvm.sh ] && source /opt/boxen/homebrew/bin/kvm.sh
