@@ -94,6 +94,7 @@
 (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
 
 ;; evil tabs
+(setq elscreen-display-tab nil)
 (global-evil-tabs-mode t)
 
 ;; powerline
