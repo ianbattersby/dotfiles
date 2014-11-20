@@ -196,6 +196,13 @@
             (set-face-background 'mode-line (car color))
             (set-face-foreground 'mode-line (cdr color))))))
 
+;; linum-relative
+(setq linum-relative-format " %3s ")
+(setq linum-disabled-modes-list '(eshell-mode wl-summary-mode compilation-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(require 'linum-relative)
+
+(define-key evil-normal-state-map (kbd "<SPC> li") 'linum-mode)
+
 ;; key-chord
 (setq key-chord-one-key-delay 0.2)
 (setq key-chord-two-keys-delay 0.15)
