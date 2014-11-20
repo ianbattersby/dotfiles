@@ -12,8 +12,8 @@ tmux split-window -v -p 30
 tmux select-pane -t 0
 tmux new-window -t $SESSION -a -n emacs
 tmux select-pane 0
-send-keys 'cd ~/src' C-m
-send-keys 'emacs' C-m
+tmux send-keys 'cd ~/src' C-m
+tmux send-keys 'emacs' C-m
 tmux new-window -t $SESSION -a -n ssh
 tmux split-window -v -p 50
 tmux select-pane -t 0
