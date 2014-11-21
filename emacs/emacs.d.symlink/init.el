@@ -2,11 +2,19 @@
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 ;; preferences
+(setq inhibit-splash-screen t)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(setq ring-bell-function 'ignore)
+
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 (setq dired-use-ls-dired nil)
+
+(show-paren-mode t)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
@@ -14,7 +22,7 @@
 (menu-bar-mode -1)
 
 (set-face-attribute 'default nil
-    :family "Source Code Pro" :height 185 :weight 'normal)
+    :family "Source Code Pro" :height 145 :weight 'normal)
 ;;    :family "Sauce Code Powerline" :height 185 :weight 'normal)
 
 (setq-default truncate-lines 1)
@@ -46,6 +54,23 @@
 
 (global-set-key (kbd "C-<return>") 'toggle-fullscreen)
 
+;; esc quits
+(defun minibuffer-keyboard-quit ()
+    "Abort recursive edit.
+  In Delete Selection mode, if the mark is active, just deactivate it;
+  then it takes a second \\[keyboard-quit] to abort the minibuffer."
+    (interactive)
+      (if (and delete-selection-mode transient-mark-mode mark-active)
+              (setq deactivate-mark  t)
+                  (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+                      (abort-recursive-edit)))
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(global-set-key [escape] 'evil-exit-emacs-state)
+
 ;; MELPA package management
 (require 'package)
 (add-to-list 'package-archives
@@ -71,6 +96,26 @@
 ;; install remote modules
 ;;(install-elisp "https://github.com/m2ym/popup-el/raw/master/popup.el")
 
+;; helm
+(require 'helm-config)
+(require 'helm-command)
+(require 'helm-elisp)
+(require 'helm-misc)
+(require 'helm-projectile)
+
+(helm-projectile-on)
+
+(global-set-key (kbd "C-x f") 'helm-for-files)
+(define-key helm-map (kbd "C-j") 'helm-next-line)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
+
+(add-to-list 'compilation-error-regexp-alist
+                 '(" in \\(.+\\):\\([1-9][0-9]+\\)" 1 2))
+
+;; flycheck
+;;(add-hook 'evil-insert-state-exit-hook (lambda() (interactive) (flycheck-mode 1)))
+;;(add-hook 'evil-normal-state-exit-hook (lambda() (interactive) (flycheck-mode -1)))
+
 ;; evil
 (setq-default evil-shift-width 4)
 (setq-default evil-auto-indent t)
@@ -93,6 +138,16 @@
 (define-key evil-normal-state-map (kbd "<SPC> a") 'helm-ag)
 (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
 
+(define-key evil-normal-state-map (kbd "<SPC> <SPC>") 'ace-jump-mode)
+
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+
+(mapc (lambda (mode) (evil-set-initial-state mode 'emacs))
+    '(eshell-mode
+        term-mode
+    ))
+
 ;; evil tabs
 (setq elscreen-display-tab nil)
 (global-evil-tabs-mode t)
@@ -100,20 +155,6 @@
 ;; powerline
 (require 'powerline)
 (powerline-center-evil-theme)
-
-;; helm
-(require 'helm-config)
-(require 'helm-command)
-(require 'helm-elisp)
-(require 'helm-misc)
-
-(global-set-key (kbd "C-x f") 'helm-for-files)
-(define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-
-(add-to-list 'compilation-error-regexp-alist
-                 '(" in \\(.+\\):\\([1-9][0-9]+\\)" 1 2))
-
 
 ;; omnisharp
 (setq omnisharp-company-do-template-completion t)
@@ -138,8 +179,12 @@
 (define-key evil-normal-state-map (kbd "<SPC> rl") 'recompile)
 
 ;; ido
+(setq ido-enable-flex-matching t)
+(setq ido-create-new-buffer 'always)
 (require 'ido)
 (ido-mode t)
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-f") 'helm-for-files)
 
 ;; popup.el
 (require 'popup)
@@ -203,6 +248,13 @@
 
 (define-key evil-normal-state-map (kbd "<SPC> li") 'linum-mode)
 
+;; smex
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+                  ; when Smex is auto-initialized on its first run.
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 ;; key-chord
 (setq key-chord-one-key-delay 0.2)
 (setq key-chord-two-keys-delay 0.15)
@@ -225,18 +277,63 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
- '(company-frontends (quote (company-pseudo-tooltip-frontend company-echo-metadata-frontend)))
+ '(ansi-color-names-vector
+   ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(company-frontends
+   (quote
+    (company-pseudo-tooltip-frontend company-echo-metadata-frontend)))
  '(company-idle-delay 0.03)
  '(company-minimum-prefix-length 1)
  '(company-show-numbers t)
+ '(compilation-message-face (quote default))
  '(custom-enabled-themes (quote (vivid-chalk)))
- '(custom-safe-themes (quote ("d856a69b420c5882358b33a7265f9f069f260cad44ca7ce0fa9b4228d65ee8f3" "05db4ea84692952a883a3ed1e3f82215163f73f41d53ffe8acdccf5b314ecb9f" "b7feeb278a5b7de0a7c8dfc35c95263fb562e0e7f654d34eac811027fb3e913e" default)))
+ '(custom-safe-themes
+   (quote
+    ("550b94fed60f498837896d9913e1f25f45300aa7bab202217908e3d3fcaf2117" "aa0cff9f0399a01e35a884bebe67039e3f8890dbe69ebaaa6e8d307dce50dfcd" "d856a69b420c5882358b33a7265f9f069f260cad44ca7ce0fa9b4228d65ee8f3" "05db4ea84692952a883a3ed1e3f82215163f73f41d53ffe8acdccf5b314ecb9f" "b7feeb278a5b7de0a7c8dfc35c95263fb562e0e7f654d34eac811027fb3e913e" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
+ '(fci-rule-color "#49483E")
  '(helm-ag-insert-at-point (quote word))
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-tail-colors
+   (quote
+    (("#49483E" . 0)
+     ("#67930F" . 20)
+     ("#349B8D" . 30)
+     ("#21889B" . 50)
+     ("#968B26" . 60)
+     ("#A45E0A" . 70)
+     ("#A41F99" . 85)
+     ("#49483E" . 100))))
+ '(magit-diff-use-overlays nil)
  '(omnisharp-auto-complete-want-documentation nil)
  '(omnisharp-company-sort-results t)
- '(omnisharp-server-executable-path (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe)))
+ '(omnisharp-server-executable-path
+   (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe))
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#272822" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
