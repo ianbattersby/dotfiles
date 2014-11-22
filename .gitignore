@@ -7,4 +7,6 @@ sublime3/User/GoSublime/osx-x64/log.txt
 git/gitconfig.symlink
 *.exe
 *.plist
-
+emacs/emacs.d.symlink/eshell/*
+emacs/emacs.d.symlink/ido.last
+emacs/emacs.d.symlink/smex-items
