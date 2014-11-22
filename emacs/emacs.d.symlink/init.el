@@ -1,5 +1,9 @@
 ;; Allow hash to be entered on UK mac keyboard
+
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+
+;; debug?
+(setq debug-on-error t)
 
 ;; preferences
 (setq inhibit-splash-screen t)
@@ -53,6 +57,18 @@
                     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 
 (global-set-key (kbd "C-<return>") 'toggle-fullscreen)
+
+;; transparency 
+;;(defun toggle-transparency ()
+;;    "Toggle transparency"
+;;        (interactive)
+;;        (if (/=
+;;              (cadr (find 'alpha (frame-parameters nil) :key #`car))
+;;              100)
+;;            (set-frame-parameter nil 'alpha '(100 100))
+;;          (set-frame-parameter nil 'alpha '(85 60))))
+
+;;(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;; esc quits
 (defun minibuffer-keyboard-quit ()
@@ -145,7 +161,9 @@
 
 (mapc (lambda (mode) (evil-set-initial-state mode 'emacs))
     '(eshell-mode
-        term-mode
+       git-rebase-mode
+       magit-branch-manager-mode
+       term-mode
     ))
 
 ;; evil tabs
@@ -277,8 +295,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
  '(company-frontends
    (quote
     (company-pseudo-tooltip-frontend company-echo-metadata-frontend)))
@@ -286,54 +302,15 @@
  '(company-minimum-prefix-length 1)
  '(company-show-numbers t)
  '(compilation-message-face (quote default))
- '(custom-enabled-themes (quote (vivid-chalk)))
+ '(custom-enabled-themes (quote (monokai)))
  '(custom-safe-themes
    (quote
-    ("550b94fed60f498837896d9913e1f25f45300aa7bab202217908e3d3fcaf2117" "aa0cff9f0399a01e35a884bebe67039e3f8890dbe69ebaaa6e8d307dce50dfcd" "d856a69b420c5882358b33a7265f9f069f260cad44ca7ce0fa9b4228d65ee8f3" "05db4ea84692952a883a3ed1e3f82215163f73f41d53ffe8acdccf5b314ecb9f" "b7feeb278a5b7de0a7c8dfc35c95263fb562e0e7f654d34eac811027fb3e913e" default)))
+    ("6fc2e47755404ba3282fc157d349d0a83f71dba7d9afceef08feb722d2a4ff6a" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
- '(fci-rule-color "#49483E")
- '(helm-ag-insert-at-point (quote word))
- '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
- '(highlight-tail-colors
-   (quote
-    (("#49483E" . 0)
-     ("#67930F" . 20)
-     ("#349B8D" . 30)
-     ("#21889B" . 50)
-     ("#968B26" . 60)
-     ("#A45E0A" . 70)
-     ("#A41F99" . 85)
-     ("#49483E" . 100))))
- '(magit-diff-use-overlays nil)
  '(omnisharp-auto-complete-want-documentation nil)
  '(omnisharp-company-sort-results t)
  '(omnisharp-server-executable-path
-   (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe))
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#F92672")
-     (40 . "#CF4F1F")
-     (60 . "#C26C0F")
-     (80 . "#E6DB74")
-     (100 . "#AB8C00")
-     (120 . "#A18F00")
-     (140 . "#989200")
-     (160 . "#8E9500")
-     (180 . "#A6E22E")
-     (200 . "#729A1E")
-     (220 . "#609C3C")
-     (240 . "#4E9D5B")
-     (260 . "#3C9F79")
-     (280 . "#A1EFE4")
-     (300 . "#299BA6")
-     (320 . "#2896B5")
-     (340 . "#2790C3")
-     (360 . "#66D9EF"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#272822" "#49483E" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0"))))
+   (quote ~/src/OmniSharpServer/OmniSharp/bin/Debug/OmniSharp\.exe)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
