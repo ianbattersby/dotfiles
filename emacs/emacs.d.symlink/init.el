@@ -87,6 +87,24 @@
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
 
+;; eshell
+(defun eshell-here ()
+    (interactive)
+    (let* ((parent (if (buffer-file-name)
+		       (file-name-directory (buffer-file-name))
+		     default-directory))
+	   (height (/ (window-total-height) 3))
+	   (name   (car (last (split-string parent "/" t)))))
+      (split-window-vertically (- height))
+      (other-window 1)
+      (eshell "new")
+      (rename-buffer (concat "*eshell: " name "*"))
+
+      (insert (concat "ls"))
+      (eshell-send-input)))
+
+(global-set-key (kbd "C-c .") 'eshell-here)
+
 ;; MELPA package management
 (require 'package)
 (add-to-list 'package-archives
@@ -129,8 +147,13 @@
                  '(" in \\(.+\\):\\([1-9][0-9]+\\)" 1 2))
 
 ;; flycheck
+;;(setq flycheck-completion-system 'ido)
 ;;(add-hook 'evil-insert-state-exit-hook (lambda() (interactive) (flycheck-mode 1)))
 ;;(add-hook 'evil-normal-state-exit-hook (lambda() (interactive) (flycheck-mode -1)))
+
+;; helm-flycheck
+(eval-after-load 'flycheck
+    '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
 ;; evil
 (setq-default evil-shift-width 4)
@@ -164,6 +187,8 @@
        git-rebase-mode
        magit-branch-manager-mode
        term-mode
+       nav-mode
+       flycheck-error-list-mode
     ))
 
 ;; evil tabs
