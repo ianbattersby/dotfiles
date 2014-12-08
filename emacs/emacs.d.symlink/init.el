@@ -129,6 +129,24 @@
 
 ;; install remote modules
 ;;(install-elisp "https://github.com/m2ym/popup-el/raw/master/popup.el")
+(add-hook 'haskell-mode-hook
+          (lambda () (define-key haskell-mode-map (kbd "C-c ?") 'helm-ghc-errors)))
+
+;; haskell-mode
+(require 'haskell)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
+;; ghc-mod
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
+
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+
+;; pretty-mode
+(add-hook 'haskell-mode-hook 'turn-on-pretty-mode)
 
 ;; helm
 (require 'helm-config)
@@ -235,7 +253,9 @@
 ;; company-mode
 (setq company-begin-commands '(self-insert-command))
 (require 'company)
+(require 'company-dabbrev-code)
 (require 'csharp-mode)
+
 (defun my-csharp-mode ()
     (add-to-list 'company-backends 'company-omnisharp)
       (omnisharp-mode)
@@ -249,10 +269,15 @@
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'after-init-hook 'global-flycheck-mode)
-  
-(add-to-list 'company-backends 'company-omnisharp)
+(add-hook 'haskell-mode-hook 'company-mode)
+
+;;(add-to-list 'company-backends 'company-omnisharp)
+;;(add-to-list 'company-backends '(company-ghc :with dabbrev-code))
+
 (eval-after-load 'company
-                   '(add-to-list 'company-backends 'company-omnisharp))
+    (progn
+      '(add-to-list 'company-backends '(company-omnisharp :with omnisharp--auto-complete-display-backend))
+      '(add-to-list 'company-backends '(company-ghc :with company-dabbrev-code))))
 
 (define-key company-active-map (kbd "C-j") 'company-select-next-or-abort)
 (define-key company-active-map (kbd "C-k") 'company-select-previous-or-abort)
@@ -332,6 +357,7 @@
    (quote
     ("6fc2e47755404ba3282fc157d349d0a83f71dba7d9afceef08feb722d2a4ff6a" default)))
  '(custom-theme-directory "~/.emacs.d/themes/")
+ '(haskell-tags-on-save t)
  '(omnisharp-auto-complete-want-documentation nil)
  '(omnisharp-company-sort-results t)
  '(omnisharp-server-executable-path
